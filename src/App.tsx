@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef} from "react";
-
-enum UserStatus {
-  LoggedIn = "Logged In",
-  LoggingIn = "Logging In",
-  LoggedOut = "Logged Out",
-  LogInError = "Log In Error",
-  VerifyingLogIn = "Verifying Log In",
-}
+import React, { useState, useEffect, useRef } from "react";
+import UserStatusButton from "./UserStatusButton";
+import { UserStatus } from "./global";
+import Menu from "./Menu";
+import MenuSection from "./MenuSection";
+import Movies from "./Movies";
+import Loading from "./Loading";
+import Background from "./Background";
+import { AppContext } from "./AppContext";
 
 enum Default {
   PIN = "1234",
@@ -114,7 +114,7 @@ const ScrollableComponent: React.FC<IScrollableComponentProps> = (
   props: IScrollableComponentProps
 ) => {
   const ref: React.MutableRefObject<HTMLDivElement | null> =
-    React.useRef<HTMLDivElement >(null);
+    React.useRef<HTMLDivElement>(null);
 
   const [state, setStateTo] = React.useState<IScrollableComponentState>({
     grabbing: false,
@@ -149,7 +149,10 @@ const ScrollableComponent: React.FC<IScrollableComponentProps> = (
     }
   };
 
-  function classNames(arg0: string, className: string | undefined): string | undefined {
+  function classNames(
+    arg0: string,
+    className: string | undefined
+  ): string | undefined {
     throw new Error("Function not implemented.");
   }
 
@@ -234,7 +237,10 @@ const PinDigit: React.FC<IPinDigitProps> = (props: IPinDigitProps) => {
     }
   }, [props.value]);
 
-  function classNames(arg0: string, arg1: { focused: boolean; hidden: boolean; }): string | undefined {
+  function classNames(
+    arg0: string,
+    arg1: { focused: boolean; hidden: boolean }
+  ): string | undefined {
     throw new Error("Function not implemented.");
   }
 
@@ -316,7 +322,8 @@ const Pin: React.FC = () => {
   };
 
   const getErrorText = () => {
-    if (userStatus === UserStatus.LogInError) <span id="app-pin-error-text">Invalid</span>;
+    if (userStatus === UserStatus.LogInError)
+      <span id="app-pin-error-text">Invalid</span>;
   };
 
   return (
@@ -346,7 +353,7 @@ const Pin: React.FC = () => {
   );
 };
 
-interface IMenuSectionProps {
+export interface IMenuSectionProps {
   children: any;
   icon: string;
   id: string;
@@ -354,29 +361,7 @@ interface IMenuSectionProps {
   title: string;
 }
 
-const MenuSection: React.FC<IMenuSectionProps> = (props: IMenuSectionProps) => {
-  const getContent = (): JSX.Element => {
-    if (props.scrollable) {
-      return (
-        <ScrollableComponent className="menu-section-content">
-          {props.children}
-        </ScrollableComponent>
-      );
-    }
-
-    return <div className="menu-section-content">{props.children}</div>;
-  };
-
-  return (
-    <div id={props.id} className="menu-section">
-      <div className="menu-section-title">
-        <i className={props.icon} />
-        <span className="menu-section-title-text">{props.title}</span>
-      </div>
-      {getContent()}
-    </div>
-  );
-};
+<MenuSection children={undefined} icon={""} id={""} title={""} />;
 
 const QuickNav: React.FC = () => {
   const getItems = (): JSX.Element[] => {
@@ -459,8 +444,7 @@ const Weather: React.FC = () => {
         | "fa-duotone fa-clouds"
         | "fa-duotone fa-cloud-drizzle"
         | "fa-duotone fa-cloud-bolt"
-        | "fa-duotone fa-sun"
-         = () => {
+        | "fa-duotone fa-sun" = () => {
         switch (day.weather) {
           case WeatherType.Cloudy:
             return "fa-duotone fa-clouds";
@@ -473,7 +457,11 @@ const Weather: React.FC = () => {
         }
       };
 
-      function classNames(arg0: string, arg1: string, arg2: any): string | undefined {
+      function classNames(
+        arg0: string,
+        arg1: string,
+        arg2: any
+      ): string | undefined {
         throw new Error("Function not implemented.");
       }
 
@@ -661,174 +649,19 @@ const Restaurants: React.FC = () => {
   );
 };
 
-const Movies: React.FC = () => {
-  const getMovies = (): JSX.Element[] => {
-    return [
-      {
-        desc: "A tale of some people watching over a large portion of space.",
-        id: 1,
-        icon: "fa-solid fa-galaxy",
-        image:
-          "https://images.unsplash.com/photo-1596727147705-61a532a659bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFydmVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-        title: "Protectors of the Milky Way",
-      },
-      {
-        desc: "Some people leave their holes to disrupt some things.",
-        id: 2,
-        icon: "fa-solid fa-hat-wizard",
-        image:
-          "https://images.unsplash.com/photo-1535666669445-e8c15cd2e7d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bG9yZCUyMG9mJTIwdGhlJTIwcmluZ3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        title: "Hole People",
-      },
-      {
-        desc: "A boy with a dent in his head tries to stop a bad guy. And by bad I mean bad at winning.",
-        id: 3,
-        icon: "fa-solid fa-broom-ball",
-        image:
-          "https://images.unsplash.com/photo-1632266484284-a11d9e3a460a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhhcnJ5JTIwcG90dGVyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-        title: "Pot of Hair",
-      },
-      {
-        desc: "A long drawn out story of some people fighting over some space. Cuz there isn't enough of it.",
-        id: 4,
-        icon: "fa-solid fa-starship-freighter",
-        image:
-          "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RhciUyMHdhcnN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        title: "Area Fights",
-      },
-    ].map((movie: any) => {
-      const styles: React.CSSProperties = {
-        backgroundImage: `url(${movie.image})`,
-      };
+<>
+  <Movies />
+  <UserStatusButton icon={""} id={""} userStatus={undefined} />
+  <Menu />
+</>;
 
-      const id: string = `movie-card-${movie.id}`;
-
-      return (
-        <div key={movie.id} id={id} className="movie-card">
-          <div
-            className="movie-card-background background-image"
-            style={styles}
-          />
-          <div className="movie-card-content">
-            <div className="movie-card-info">
-              <span className="movie-card-title">{movie.title}</span>
-              <span className="movie-card-desc">{movie.desc}</span>
-            </div>
-            <i className={movie.icon} />
-          </div>
-        </div>
-      );
-    });
-  };
-
-  return (
-    <MenuSection
-      icon="fa-solid fa-camera-movie"
-      id="movies-section"
-      scrollable
-      title="Popcorn time!"
-    >
-      {getMovies()}
-    </MenuSection>
-  );
-};
-
-interface IUserStatusButton {
-  icon: string;
-  id: string;
-  userStatus: UserStatus;
-}
-
-const UserStatusButton: React.FC<IUserStatusButton> = (
-  props: IUserStatusButton
-) => {
-  const { userStatus, setUserStatusTo } = React.useContext(AppContext);
-
-  const handleOnClick = (): void => {
-    setUserStatusTo(props.userStatus);
-  };
-
-  return (
-    <button
-      id={props.id}
-      className="user-status-button clear-button"
-      disabled={userStatus === props.userStatus}
-      type="button"
-      onClick={handleOnClick}
-    >
-      <i className={props.icon} />
-    </button>
-  );
-};
-
-const Menu: React.FC = () => {
-  return (
-    <div id="app-menu">
-      <div id="app-menu-content-wrapper">
-        <div id="app-menu-content">
-          <div id="app-menu-content-header">
-            <div className="app-menu-content-header-section">
-              <Info id="app-menu-info" />
-              <Reminder />
-            </div>
-            <div className="app-menu-content-header-section">
-              <UserStatusButton
-                icon="fa-solid fa-arrow-right-from-arc"
-                id="sign-out-button"
-                userStatus={UserStatus.LoggedOut}
-              />
-            </div>
-          </div>
-          <QuickNav />
-          <a
-            id="youtube-link"
-            className="clear-button"
-            href="https://www.youtube.com/c/Hyperplexed"
-            target="_blank"
-          >
-            <i className="fa-brands fa-youtube" />
-            <span>Hyperplexed</span>
-          </a>
-          <Weather />
-          <Restaurants />
-          <Tools />
-          <Movies />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Background: React.FC = () => {
-  const { userStatus, setUserStatusTo } = React.useContext(AppContext);
-
-  const handleOnClick = (): void => {
-    if (userStatus === UserStatus.LoggedOut) {
-      setUserStatusTo(UserStatus.LoggingIn);
-    }
-  };
-
-  return (
-    <div id="app-background" onClick={handleOnClick}>
-      <div id="app-background-image" className="background-image" />
-    </div>
-  );
-};
-
-const Loading: React.FC = () => {
-  return (
-    <div id="app-loading-icon">
-      <i className="fa-solid fa-spinner-third" />
-    </div>
-  );
-};
-
-interface IAppContext {
-  userStatus: UserStatus;
-  setUserStatusTo: (status: UserStatus) => void;
-}
-
-const AppContext = React.createContext<IAppContext>(null);
+<>
+  <>
+    <Background />
+    <Loading />
+  </>
+  <AppContext />
+</>;
 
 const App: React.FC = () => {
   const [userStatus, setUserStatusTo] = React.useState<UserStatus>(
@@ -859,3 +692,4 @@ const App: React.FC = () => {
   );
 };
 
+export default App;
