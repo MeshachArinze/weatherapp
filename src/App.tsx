@@ -7,6 +7,8 @@ import Movies from "./Movies";
 import Loading from "./Loading";
 import Background from "./Background";
 import { AppContext } from "./AppContext";
+import Tools from "./Tools";
+import Restaurant from "./Restaurant";
 
 enum Default {
   PIN = "1234",
@@ -497,163 +499,12 @@ const Weather: React.FC = () => {
   );
 };
 
-const Tools: React.FC = () => {
-  const getTools = (): JSX.Element[] => {
-    return [
-      {
-        icon: "fa-solid fa-cloud-sun",
-        id: 1,
-        image:
-          "https://images.unsplash.com/photo-1492011221367-f47e3ccd77a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHdlYXRoZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        label: "Weather",
-        name: "Cloudly",
-      },
-      {
-        icon: "fa-solid fa-calculator-simple",
-        id: 2,
-        image:
-          "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2FsY3VsYXRvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        label: "Calc",
-        name: "Mathio",
-      },
-      {
-        icon: "fa-solid fa-piggy-bank",
-        id: 3,
-        image:
-          "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8YmFua3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        label: "Bank",
-        name: "Cashy",
-      },
-      {
-        icon: "fa-solid fa-plane",
-        id: 4,
-        image:
-          "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWlycGxhbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        label: "Travel",
-        name: "Fly-er-io-ly",
-      },
-      {
-        icon: "fa-solid fa-gamepad-modern",
-        id: 5,
-        image:
-          "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dmlkZW8lMjBnYW1lc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        label: "Games",
-        name: "Gamey",
-      },
-      {
-        icon: "fa-solid fa-video",
-        id: 6,
-        image:
-          "https://images.unsplash.com/photo-1578022761797-b8636ac1773c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHZpZGVvJTIwY2hhdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        label: "Video Chat",
-        name: "Chatty",
-      },
-    ].map((tool: any) => {
-      const styles: React.CSSProperties = {
-        backgroundImage: `url(${tool.image})`,
-      };
 
-      function classNames(icon: any, arg1: string): string | undefined {
-        throw new Error("Function not implemented.");
-      }
-
-      return (
-        <div key={tool.id} className="tool-card">
-          <div
-            className="tool-card-background background-image"
-            style={styles}
-          />
-          <div className="tool-card-content">
-            <div className="tool-card-content-header">
-              <span className="tool-card-label">{tool.label}</span>
-              <span className="tool-card-name">{tool.name}</span>
-            </div>
-            <i className={classNames(tool.icon, "tool-card-icon")} />
-          </div>
-        </div>
-      );
-    });
-  };
-
-  return (
-    <MenuSection
-      icon="fa-solid fa-toolbox"
-      id="tools-section"
-      title="What's Appening?"
-    >
-      {getTools()}
-    </MenuSection>
-  );
-};
-
-const Restaurants: React.FC = () => {
-  const getRestaurants = (): JSX.Element[] => {
-    return [
-      {
-        desc: "The best burgers in town",
-        id: 1,
-        image:
-          "https://images.unsplash.com/photo-1606131731446-5568d87113aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        title: "Burgers",
-      },
-      {
-        desc: "The worst ice-cream around",
-        id: 2,
-        image:
-          "https://images.unsplash.com/photo-1576506295286-5cda18df43e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aWNlJTIwY3JlYW18ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        title: "Ice Cream",
-      },
-      {
-        desc: "This 'Za be gettin down",
-        id: 3,
-        image:
-          "https://images.unsplash.com/photo-1590947132387-155cc02f3212?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        title: "Pizza",
-      },
-      {
-        desc: "BBQ ain't need no rhyme",
-        id: 4,
-        image:
-          "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YmFyYmVxdWV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-        title: "BBQ",
-      },
-    ].map((restaurant: any) => {
-      const styles: React.CSSProperties = {
-        backgroundImage: `url(${restaurant.image})`,
-      };
-
-      return (
-        <div
-          key={restaurant.id}
-          className="restaurant-card background-image"
-          style={styles}
-        >
-          <div className="restaurant-card-content">
-            <div className="restaurant-card-content-items">
-              <span className="restaurant-card-title">{restaurant.title}</span>
-              <span className="restaurant-card-desc">{restaurant.desc}</span>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  };
-  return (
-    <MenuSection
-      icon="fa-regular fa-pot-food"
-      id="restaurants-section"
-      title="Get it delivered!"
-    >
-      {getRestaurants()}
-    </MenuSection>
-  );
-};
-
-<>
+<><Tools /><Restaurant /><>
   <Movies />
   <UserStatusButton icon={""} id={""} userStatus={undefined} />
   <Menu />
-</>;
+</></>;
 
 <>
   <>
