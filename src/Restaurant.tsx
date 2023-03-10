@@ -1,3 +1,5 @@
+import MenuSection from "./MenuSection";
+
 const Restaurants: React.FC = () => {
   const getRestaurants = (): JSX.Element[] => {
     return [

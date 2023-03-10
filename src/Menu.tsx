@@ -1,6 +1,13 @@
 import React from "react";
 import UserStatusButton from "./UserStatusButton";
 import { UserStatus } from "./global";
+import Movies from "./Movies";
+import Reminder from "./Reminder";
+import Restaurants from "./Restaurant";
+import Tools from "./Tools";
+import Info from "./Info";
+import QuickNav from "./QuickNav";
+import Weather from "./Weather";
 
 const Menu: React.FC = () => {
   return (
@@ -9,7 +16,7 @@ const Menu: React.FC = () => {
         <div id="app-menu-content">
           <div id="app-menu-content-header">
             <div className="app-menu-content-header-section">
-              <Info id="app-menu-info" />
+              <Info  />
               <Reminder />
             </div>
             <div className="app-menu-content-header-section">

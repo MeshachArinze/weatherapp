@@ -1,5 +1,7 @@
 import React from "react";
 import { AppContext } from "./AppContext";
+import { LogInUtility } from "./global";
+import PinDigit from "./PinDigit";
 
 enum UserStatus {
   LoggedIn = "Logged In",
@@ -105,3 +107,6 @@ const Pin: React.FC = () => {
     </div>
   );
 };
+
+
+export default Pin

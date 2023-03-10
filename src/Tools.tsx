@@ -1,3 +1,5 @@
+import MenuSection from "./MenuSection";
+
 const Tools: React.FC = () => {
   const getTools = (): JSX.Element[] => {
     return [
